@@ -1,0 +1,182 @@
+{
+  "info": {
+    "_postman_id": "f441a5a9-2742-400d-a64b-e58fddf036aa",
+    "name": "Centralized Logging System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25151047"
+  },
+  "item": [
+    {
+      "name": "Log Controller",
+      "item": [
+        {
+          "name": "Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/metrics",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "metrics"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Log Server",
+      "item": [
+        {
+          "name": "Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/logs",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "key": "service",
+                  "value": "linux_login",
+                  "disabled": true
+                },
+                {
+                  "key": "level",
+                  "value": "DEBUG",
+                  "disabled": true
+                },
+                {
+                  "key": "username",
+                  "value": "motadata",
+                  "disabled": true
+                },
+                {
+                  "key": "is.blacklisted",
+                  "value": "false",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "4",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "timestamp",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/metrics",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "metrics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Batch Operations",
+      "item": [
+        {
+          "name": "Ingest Multiple Logs - Batch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    {\n        \"timestamp\": \"2025-01-17T10:31:00Z\",\n        \"event.category\": \"linux_login\",\n        \"event.source.type\": \"linux\",\n        \"username\": \"admin\",\n        \"hostname\": \"server01\",\n        \"severity\": \"INFO\",\n        \"raw.message\": \"<86> server01 sudo: session opened for user admin\",\n        \"is.blacklisted\": false\n    },\n    {\n        \"timestamp\": \"2025-01-17T10:32:00Z\",\n        \"event.category\": \"windows_login\",\n        \"event.source.type\": \"windows\",\n        \"username\": \"motadata\",\n        \"hostname\": \"WIN-SERVER01\",\n        \"severity\": \"ERROR\",\n        \"raw.message\": \"<134> WIN-SERVER01 Microsoft-Windows-Security-Auditing: Login failed\",\n        \"is.blacklisted\": true\n    },\n    {\n        \"timestamp\": \"2025-01-17T10:33:00Z\",\n        \"event.category\": \"linux_logout\",\n        \"event.source.type\": \"linux\",\n        \"username\": \"developer\",\n        \"hostname\": \"aiops9242\",\n        \"severity\": \"WARN\",\n        \"raw.message\": \"<86> aiops9242 systemd-logind: session closed for user developer\",\n        \"is.blacklisted\": false\n    }\n]"
+            },
+            "url": {
+              "raw": "http://localhost:8080/ingest",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "ingest"
+              ]
+            },
+            "description": "Ingest multiple log entries in a batch"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
