@@ -16,7 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 @Service
 public class LogStorageServiceImpl implements LogStorageService {
@@ -38,11 +37,6 @@ public class LogStorageServiceImpl implements LogStorageService {
 
 	public LogStorageServiceImpl(Scheduler logProcessingScheduler) {
 		this.logProcessingScheduler = logProcessingScheduler;
-		initializeSink();
-	}
-
-	public LogStorageServiceImpl() {
-		this.logProcessingScheduler = Schedulers.boundedElastic();
 		initializeSink();
 	}
 

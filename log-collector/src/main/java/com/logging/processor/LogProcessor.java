@@ -139,6 +139,7 @@ public class LogProcessor {
 		}
 	}
 
+	// priority = (facility * 8) + severity;
 	private String getSeverityFromPriority(int priority) {
 		int severity = priority & 0x07;
 		switch (severity) {

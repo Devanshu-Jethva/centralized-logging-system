@@ -14,6 +14,8 @@ import com.logging.service.impl.LogStorageServiceImpl;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 
 class LogStorageServiceTest {
@@ -22,7 +24,8 @@ class LogStorageServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		logStorageService = new LogStorageServiceImpl();
+		Scheduler scheduler = Schedulers.immediate();
+		logStorageService = new LogStorageServiceImpl(scheduler);
 	}
 
 	@Test
